@@ -1,0 +1,85 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/*Styls for the font, is a component from universe ui*/
+.card {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background: rgb(242, 242, 242);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  gap: 2vw;
+}
+
+/*Styles in the inputs, simple*/
+.input {
+  width: 20vw;
+  min-width: 200px;
+  max-width: 210px;
+
+  padding: 0.875rem;
+  margin: 0.875rem;
+  font-size: 1rem;
+  border: 1.5px solid #000;
+  border-radius: 0.5rem;
+  box-shadow: 2.5px 3px 0 #000;
+  outline: none;
+  transition: ease 0.25s;
+}
+
+.input:focus {
+  box-shadow: 5.5px 5px 0 black;
+}
+
+#email {
+  width: 66vw;
+  min-width: 250px;
+  max-width: 450px;
+}
+/*Styles for the buttons*/
+button {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100px;
+  height: 45px;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px #000000;
+  color: #000;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px;
+}
+
+.buttons>*{
+width: 45%;
+margin: 10px;
+}
+
+/*Styles for the general form and the gap*/
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+}
