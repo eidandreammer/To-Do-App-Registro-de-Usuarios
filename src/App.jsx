@@ -1,5 +1,5 @@
 import React from "react";
-import Registro from "./components/registro";
+import Registro from "./components/Registro";
 
 function App() {
   return (

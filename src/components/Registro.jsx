@@ -7,20 +7,19 @@ function registro() {
       <h1>Users form</h1>
       <div className="form">
         <form>
-          <div className="firstLine">
-            <input
-              type="email"
-              name="text"
-              className="input"
-              placeholder="Name"
-            />
-            <input
-              type="password"
-              name="text"
-              className="input"
-              placeholder="Password"
-            />
-          </div>
+          <input
+            type="text"
+            name="text"
+            className="input"
+            placeholder="Name"
+          />
+          <input
+            type="password"
+            name="text"
+            className="input"
+            placeholder="Password"
+          />
+
           <input
             id="email"
             type="email"
@@ -31,7 +30,7 @@ function registro() {
 
           <div className="buttons">
             <button>Sing In</button>
-            <button>Sing On</button>
+            <button>Sing Un</button>
           </div>
         </form>
       </div>
