@@ -46,6 +46,30 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+app.post("/api/register", async (req, res) => {
+  const { users, password, email } = req.body;
+
+  try {
+    //Validacion de usuario
+    const logg = await pool.query(
+      "SELECT * FROM users WHERE name = $1 AND password = $2 AND email = $3",
+      [users, password, email]
+    );
+
+    if (logg.rows.length === 1) {
+      return res.status(200).json({
+        data: logg,
+        success: true,
+      });
+    }
+  } catch (errro) {
+    res.status(500).json({
+      message: "Error del lado del servidor",
+      success: false,
+    });
+  }
+});
+
 //El servidor esta escuchando
 app.listen(port, () => {
   console.log("El servidor esta escuchando en el puerto " + port);

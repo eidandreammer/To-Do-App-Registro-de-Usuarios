@@ -23,58 +23,66 @@ function Registro() {
     setEmail(e.target.value);
   }
 
-  //En esta funcion se usa el handleSubmit(e) para hacerlos default siempre,
-  //es decir, no se recarge el formulario siempre
-  async function handleSubmit(e) {
-    e.preventDefault();
-    await register();
-  }
+  //Evaluamos si alguna de los estados no esta definido y si es asi se indica
+  //que existen datos incompletos
 
   async function register() {
-    //Evaluamos si alguna de los estados no esta definido y si es asi se indica
-    //que existen datos incompletos
     if (!users || !password || !email) {
       return alert("Campos incompletos");
     }
     const data = { users, password, email }; //se declaran las variables como objetos
 
     try {
-      // se inicia el manejo de errores del lado del servidor en caso de que haya
-      //algun error de parte de este
       const res = await fetch("http://localhost:3000/api/register", {
-        //Aqui se define el metodo, el headers se encarga de decirle a la
-        //aplicacion que esta en json
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data), //Convierte los datos que vienen del body
-        //a json y a string
+        body: JSON.stringify(data),
       });
 
       alert("Usuario registrado con exito");
-      const result = await res.json(); // todo lo anterior guardado en la
-      //variable res se convierte en json luego de que lleguen
+      const result = await res.json();
       console.log("Respuesta del servidor" + result);
     } catch (error) {
       alert("Error al enviar los datos");
       console.error("Error al enviar los datos" + error);
-      // manejo de errores en caso de que no se logren enviar los datos
+    }
+  }
+  async function logIn() {
+    if (!users || !password || !email) {
+      return alert("Campos incompletos");
+    }
+    const data = { users, password, email }; //se declaran las variables como objetos
+
+    try {
+      const res = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      alert("Seccion iniciada");
+      console.log("Respuesta del servidor", result);
+    } catch (error) {
+      alert("Error al iniciar seccion");
+      console.error("Error al iniciar seccion", error);
     }
   }
   return (
     <div className="card">
       <h1>User's form</h1>
       <div className="form">
-        <form onSubmit={handleSubmit}>
+        <form>
           <input
             type="text"
             name="text"
             className="input"
             placeholder="Name"
-            onChange={(e) => inpUser(e)} // Se declara el input y se llama la
-            //funcion correspondiente para que se almacene en su variable
-            //se repite con los 3 inputs
+            onChange={(e) => inpUser(e)}
           />
           <input
             type="password"
@@ -92,10 +100,19 @@ function Registro() {
             placeholder="Email address"
             onChange={(e) => inpEmail(e)}
           />
+          <div className="fgtpsw">
+            <p>
+              <a href="###">Forgot your password?</a>
+            </p>
+          </div>
 
           <div className="buttons">
-            <button type="button">Sign In</button>
-            <button type="submit">Register</button>
+            <button type="button" onClick={logIn}>
+              Login
+            </button>
+            <button type="button" onClick={register}>
+              Register
+            </button>
           </div>
         </form>
       </div>
