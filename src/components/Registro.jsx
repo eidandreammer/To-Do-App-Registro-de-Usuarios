@@ -51,7 +51,7 @@ function Registro() {
   }
 
   async function login() {
-    if (!users || !password || !email) {
+    if ((!users && !email) || !password) {
       return alert("Campos incompletos");
     }
 
@@ -67,8 +67,8 @@ function Registro() {
       const result = await res.json();
       if (result.success && res.ok) {
         alert("Inicio de seccion exitoso");
-      }else{
-        alert(result.message)
+      } else {
+        alert(result.message);
       }
     } catch (error) {
       console.log("Error al iniciar seccion", error);
