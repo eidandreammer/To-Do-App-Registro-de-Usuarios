@@ -52,7 +52,7 @@ function Registro() {
 
   return (
     <div className="card">
-      <h1>User's form</h1>
+      <h1>Register form</h1>
       <div className="form">
         <form>
           <input
