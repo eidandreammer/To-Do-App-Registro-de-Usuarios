@@ -85,7 +85,7 @@ app.post("/api/login", async (req, res) => {
     );
 
     if (login.rows.length === 0) {
-      return res.status(201).json({
+      return res.status(200).json({
         success: false,
         message: "Contrasena incorrecta",
       });
@@ -99,6 +99,33 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error de lado del servidor",
+    });
+  }
+});
+
+app.post("/api/change", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const change = await pool.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+
+    if (change.rows.length === 1) {
+      return res.status(200).json({
+        success: true,
+        data: change.rows[0],
+      });
+    }
+
+    res.status(404).json({
+      success: false,
+      message: "Correo no registrado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error del lado del servidor",
     });
   }
 });
