@@ -15,10 +15,8 @@
   justify-content: center;
   align-items: center;
   flex-flow: column;
+  border: solid 1px #dcdcdc;
 }
-
-
-
 
 /* From Uiverse.io by reglobby */
 .input {
@@ -28,8 +26,8 @@
   height: 6.5vh;
   padding-left: 0.8em;
   outline: none;
-  overflow: hidden;
-  background-color: #f3f3f3;
+   overflow: hidden;
+  background-color: #fafafa;
   border-radius: 10px;
   transition: all 0.5s;
   margin: 10px;
@@ -73,6 +71,7 @@ form {
   flex-flow: column;
   justify-content: center;
 }
+
 
 .register {
   display: flex;

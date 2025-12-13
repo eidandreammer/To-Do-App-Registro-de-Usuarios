@@ -1,7 +1,10 @@
 * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
 }
-
+/* From Uiverse.io by adamgiebl */
 .container {
   padding: 20px;
   background: #f5f5f5;
@@ -13,20 +16,8 @@
   justify-content: center;
   align-items: center;
   flex-flow: column;
+  border: solid 1px #dcdcdc;
   text-align: center;
-}
-
-.btn {
-  padding: 20px;
-}
-
-.btn button {
-  margin: 15px;
-}
-
-img {
-  height: 100px;
-  width: 100px;
 }
 
 /*Logo Orbi*/
@@ -41,4 +32,79 @@ img {
     top: -7vh;
     left: 0vw;
   }
+}
+
+/* From Uiverse.io by reglobby */
+.input {
+  border: 2px solid transparent;
+  max-width: 300px;
+  width: 80vw;
+  height: 6.5vh;
+  padding-left: 0.8em;
+  outline: none;
+  overflow: hidden;
+  background-color: #fafafa;
+  border-radius: 10px;
+  transition: all 0.5s;
+  margin: 10px;
+}
+
+.input:hover,
+.input:focus {
+  border: 2px solid #295aaa;
+  box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
+  background-color: white;
+}
+
+/* From Uiverse.io by Mhyar-nsi */
+button {
+  background-color: #f3f7fe;
+  color: #0d2a58;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100px;
+  height: 45px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #295aaa;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+.buttons {
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/*General form*/
+
+form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.fgtpsw {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.fgtpsw a {
+  padding-top: 20px;
+  color: #0d2a58;
+  text-decoration: none;
 }

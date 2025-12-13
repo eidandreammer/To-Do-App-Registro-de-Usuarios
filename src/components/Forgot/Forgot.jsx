@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Forgot.css";
 import Pass from "../Pass/Pass";
 
 function Forgot() {
@@ -43,8 +42,9 @@ function Forgot() {
       {view && (
         <div className="container">
           <img className="logo" src="/img/OrbiNombre.png" />
-          <h1>Associated email</h1>
+          
           <div className="form">
+            <h1>Associated email</h1>
             <form>
               <input
                 id="email"

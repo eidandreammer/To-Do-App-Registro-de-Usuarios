@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Login.css";
 import Registro from "../Registro/Registro";
 import Forgot from "../Forgot/Forgot";
 
@@ -54,8 +53,9 @@ function Login() {
           {register && (
             <div className="container">
               <img className="logo" src="/img/OrbiNombre.png" />
-              <h1>Login</h1>
+
               <div className="form">
+                <h1>Login</h1>
                 <form>
                   <input
                     type="text"
