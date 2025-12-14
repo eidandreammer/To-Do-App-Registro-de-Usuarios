@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import Login from "../Login/Login";
 
 function Forgot() {
   const [email, setEmail] = useState("");
   const [view, setView] = useState(true);
+  const [pass1, setPass1] = useState("");
+  const [pass2, setPass2] = useState("");
+  const [show, setShow] = useState(true);
 
   function inpEmail(e) {
     setEmail(e.target.value);
@@ -37,9 +41,6 @@ function Forgot() {
     }
   }
 
-  const [pass1, setPass1] = useState("");
-  const [pass2, setPass2] = useState("");
-
   function inpPass1(e) {
     setPass1(e.target.value);
   }
@@ -66,78 +67,89 @@ function Forgot() {
         body: JSON.stringify(data),
       });
 
-      const result = await res.json;
+      const result = await res.json();
       if (!result.success) {
-        return alert("La contrasena fue cambada");
+        return alert("Error al cambiar la contrasena");
       }
+
+      alert(result.message);
+      function pass() {
+        setShow(!show);
+      }
+      pass();
     } catch (error) {
       alert("Error de parte del servidor", error);
     }
   }
+
   return (
     <div>
-      <div className="container">
-        <img className="logo" src="/img/OrbiNombre.png" />
+      {show && (
+        <div className="container">
+          <img className="logo" src="/img/OrbiNombre.png" />
 
-        <div className="form">
-          {view ? <h1>Registered email</h1> : <h1>Change password</h1>}
-          <form>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              className="input"
-              placeholder="Email address"
-              onChange={(e) => inpEmail(e)}
-            />
+          <div className="form">
+            {view ? <h1>Registered email</h1> : <h1>Change password</h1>}
+            <form>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                className="input"
+                placeholder="Email address"
+                onChange={(e) => inpEmail(e)}
+              />
 
-            {view && (
-              <div className="buttons">
-                <button>Login</button>
-                <button
-                  type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    validate();
-                  }}
-                >
-                  Send
-                </button>
-              </div>
-            )}
-            {!view && (
-              <div className="psw">
-                <input
-                  type="password"
-                  name="password"
-                  className="input"
-                  placeholder="New password"
-                  onChange={(e) => inpPass1(e)}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  className="input"
-                  placeholder="Confirm password"
-                  onChange={(e) => inpPass2(e)}
-                />
-
-                <div className="button">
+              {view && (
+                <div className="buttons">
+                  <button>Login</button>
                   <button
                     type="submit"
                     onClick={(e) => {
                       e.preventDefault();
-                      changePass();
+                      validate();
                     }}
                   >
-                    Change
+                    Send
                   </button>
                 </div>
-              </div>
-            )}
-          </form>
+              )}
+              {!view && (
+                <div className="psw">
+                  <input
+                    type="password"
+                    name="password"
+                    className="input"
+                    placeholder="New password"
+                    onChange={(e) => inpPass1(e)}
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    className="input"
+                    placeholder="Confirm password"
+                    onChange={(e) => inpPass2(e)}
+                  />
+
+                  <div className="button">
+                    <button
+                      type="submit"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        changePass();
+                      }}
+                    >
+                      Change
+                    </button>
+                  </div>
+                </div>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
+      )}
+
+      {!show && <Login />}
     </div>
   );
 }
