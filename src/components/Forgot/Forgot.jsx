@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Pass from "../Pass/Pass";
 
 function Forgot() {
   const [email, setEmail] = useState("");
@@ -95,6 +94,7 @@ function Forgot() {
 
             {view && (
               <div className="buttons">
+                <button>Login</button>
                 <button onClick={() => validate()}>Send</button>
               </div>
             )}

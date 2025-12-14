@@ -18,6 +18,7 @@
   flex-flow: column;
   border: solid 1px #dcdcdc;
   text-align: center;
+  
 }
 
 /*Logo Orbi*/
@@ -87,6 +88,7 @@ form {
   flex-flow: column;
   justify-content: center;
   gap: 1vh;
+  padding: 20px;
 }
 
 h1 {
@@ -106,6 +108,7 @@ h1 {
   align-items: center;
   justify-content: center;
   font-size: 14px;
+  
 }
 
 .fgtpsw a {
