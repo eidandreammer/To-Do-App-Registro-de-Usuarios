@@ -1,7 +1,7 @@
 //Importar librerias
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require("pg"); // <-- OJO: Pool con P mayúscula
+const { Pool } = require("pg");
 
 //Crear la app de express
 const app = express();
@@ -121,6 +121,33 @@ app.post("/api/change", async (req, res) => {
     res.status(404).json({
       success: false,
       message: "Correo no registrado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error del lado del servidor",
+    });
+  }
+});
+
+app.put("/api/pass", async (req, res) => {
+  const { pass1 } = req.body;
+
+  try {
+    const newPass = await pool.query(
+      "UPDATE users SET password = $1 WHERE email = $2",
+      [pass1]
+    );
+
+    if (!newPass) {
+      return res.status(409).json({
+        success: false,
+        message: "Error al cambiar la contrasena",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Contrasna cambiada",
     });
   } catch (error) {
     res.status(500).json({

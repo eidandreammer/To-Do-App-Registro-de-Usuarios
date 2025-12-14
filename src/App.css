@@ -89,7 +89,7 @@ form {
   gap: 1vh;
 }
 
-h1{
+h1 {
   margin: 15px;
   color: #0d2a58;
 }
@@ -112,4 +112,11 @@ h1{
   padding-top: 20px;
   color: #0d2a58;
   text-decoration: none;
+}
+
+.psw {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
