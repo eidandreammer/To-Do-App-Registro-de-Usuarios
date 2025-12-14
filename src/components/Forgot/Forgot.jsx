@@ -58,7 +58,7 @@ function Forgot() {
     }
 
     try {
-      const res = await fetch("/api/pass", {
+      const res = await fetch("http://localhost:3000/api/pass", {
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -66,13 +66,12 @@ function Forgot() {
         body: JSON.stringify(data),
       });
 
-      const result = res.json;
+      const result = await res.json;
       if (!result.success) {
-        return alert(result.message);
+        return alert("La contrasena fue cambada");
       }
-      alert(result.message);
     } catch (error) {
-      alert(result.message);
+      alert("Error de parte del servidor", error);
     }
   }
   return (
