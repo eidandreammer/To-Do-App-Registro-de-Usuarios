@@ -131,12 +131,12 @@ app.post("/api/change", async (req, res) => {
 });
 
 app.put("/api/pass", async (req, res) => {
-  const { pass1 } = req.body;
+  const { pass1, email } = req.body;
 
   try {
     const newPass = await pool.query(
       "UPDATE users SET password = $1 WHERE email = $2",
-      [pass1]
+      [pass1, email]
     );
 
     if (!newPass) {

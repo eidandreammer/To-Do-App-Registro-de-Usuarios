@@ -23,7 +23,7 @@ function Forgot() {
       const result = await res.json();
 
       if (!result.success) {
-        alert(result.message);
+        return alert(result.message);
       }
 
       function pass() {
@@ -49,7 +49,7 @@ function Forgot() {
   }
 
   async function changePass() {
-    const data = { pass1, pass2 };
+    const data = { pass1, email };
 
     if (!pass1 || !pass2) {
       return alert("Campos incompletos");
@@ -95,7 +95,15 @@ function Forgot() {
             {view && (
               <div className="buttons">
                 <button>Login</button>
-                <button onClick={() => validate()}>Send</button>
+                <button
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    validate();
+                  }}
+                >
+                  Send
+                </button>
               </div>
             )}
             {!view && (
@@ -116,7 +124,15 @@ function Forgot() {
                 />
 
                 <div className="button">
-                  <button onClick={() => changePass()}>Change</button>
+                  <button
+                    type="submit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      changePass();
+                    }}
+                  >
+                    Change
+                  </button>
                 </div>
               </div>
             )}
