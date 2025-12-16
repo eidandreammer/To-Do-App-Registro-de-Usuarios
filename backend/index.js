@@ -76,7 +76,7 @@ app.post("/api/login", async (req, res) => {
     if (evaluate.rows.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Usuario no encontrado backend",
+        message: "Usuario no encontrado",
       });
     }
     const login = await pool.query(

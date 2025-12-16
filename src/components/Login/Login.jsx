@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Alert } from "antd";
 import Registro from "../Registro/Registro";
 import Forgot from "../Forgot/Forgot";
 
@@ -46,6 +47,7 @@ function Login() {
   //que existen datos incompletos
   const [register, setRegister] = useState(true);
   const [pass, setPass] = useState(true);
+
   return (
     <div>
       {pass && (
@@ -55,7 +57,9 @@ function Login() {
               <img className="logo" src="/img/OrbiNombre.png" />
 
               <div className="form">
+                <Alert title="Operación exitosa" type="success" showIcon />
                 <h1>Login</h1>
+
                 <form>
                   <input
                     type="text"

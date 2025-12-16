@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
-import { Alert } from "antd";
+import "antd/dist/reset.css";
 
 function App() {
   return (
