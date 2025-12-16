@@ -18,7 +18,6 @@
   flex-flow: column;
   border: solid 1px #dcdcdc;
   text-align: center;
-  
 }
 
 /*Logo Orbi*/
@@ -76,7 +75,6 @@ button:hover {
 }
 
 .buttons {
-  padding: 20px;
   display: flex;
   justify-content: space-around;
 }
@@ -96,7 +94,7 @@ h1 {
   color: #0d2a58;
 }
 
-.alert{
+.alert {
   margin: 20px;
 }
 
@@ -113,11 +111,10 @@ h1 {
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  
+  margin-top: 10px;
 }
 
 .fgtpsw a {
-  padding-top: 20px;
   color: #0d2a58;
   text-decoration: none;
 }
@@ -127,4 +124,13 @@ h1 {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+/*Avisos al cliente*/
+
+.warning {
+  color: red;
+  font-family: "Lato", sans-serif;
+  font-style: italic;
+  font-size: 13px;
 }

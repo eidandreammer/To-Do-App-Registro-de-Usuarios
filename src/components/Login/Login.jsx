@@ -13,6 +13,18 @@ function Login() {
     login: false,
     error: false,
   });
+
+  function timer() {
+    setTimeout(() => {
+      setAlerts((alerts) => ({
+        ...alerts,
+        cmpInc: false,
+        problem: false,
+        login: false,
+        error: false,
+      }));
+    }, 5000);
+  }
   //Aqui es en donde se declara la funcion para llamarla y se actualice
   //el valor de cada estado con el contenido del input
 
@@ -25,7 +37,11 @@ function Login() {
   }
   async function login() {
     if (!users || !password) {
-      return alert("Campos incompletos");
+      function validation() {
+        setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+        timer();
+      }
+      return validation();
     }
 
     const data = { users, password };
@@ -39,12 +55,16 @@ function Login() {
 
       const result = await res.json();
       if (!result.success) {
-        return;
+        setAlerts((alerts) => ({ ...alerts, problem: true }));
+        timer();
+      } else if (result.succes) {
+        setAlerts((alerts) => ({ ...alerts, login: true }));
+        timer();
       }
-      alert("Seccion iniciada");
     } catch (error) {
       console.log("Error al iniciar seccion", error);
-      alert("Error al inicciar seccion");
+      setAlerts((alerts) => ({ ...alerts, error: true }));
+      timer();
     }
   }
 
@@ -77,6 +97,21 @@ function Login() {
                     placeholder="Password"
                     onChange={(e) => inpPassword(e)}
                   />
+                  {alerts.cmpInc && (
+                    <Alert title="Campos incompletos" type="warning" />
+                  )}
+                  {alerts.problem && (
+                    <Alert
+                      title="Usuario o contrasena Incorrecta"
+                      type="error"
+                    />
+                  )}
+                  {alerts.login && (
+                    <Alert title="Inicio de seccion exitoso" type="success" />
+                  )}
+                  {alerts.error && (
+                    <Alert title="Error de parte del servidor" type="error" />
+                  )}
                   <div className="fgtpsw">
                     <p>
                       <a
