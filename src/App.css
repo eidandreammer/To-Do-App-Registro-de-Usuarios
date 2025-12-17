@@ -75,6 +75,7 @@ button:hover {
 }
 
 .buttons {
+  margin-top: 5px;
   display: flex;
   justify-content: space-around;
 }
@@ -128,9 +129,6 @@ h1 {
 
 /*Avisos al cliente*/
 
-.warning {
-  color: red;
-  font-family: "Lato", sans-serif;
-  font-style: italic;
-  font-size: 13px;
+.alerts{
+  margin: 10px;
 }

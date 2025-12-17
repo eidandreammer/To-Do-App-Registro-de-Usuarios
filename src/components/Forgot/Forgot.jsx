@@ -8,6 +8,29 @@ function Forgot() {
   const [pass2, setPass2] = useState("");
   const [show, setShow] = useState(true);
 
+  const [alerts, setAlerts] = useState({
+    cmpInc: false,
+    diferent: false,
+    problem: false,
+    change: false,
+    error: false,
+  });
+
+  function timer() {
+    setTimeout(() => {
+      setAlerts(
+        (alerts = {
+          ...alerts,
+          cmpInc: false,
+          diferent: false,
+          problem: false,
+          change: false,
+          error: false,
+        })
+      );
+    }, 5000);
+  }
+
   function inpEmail(e) {
     setEmail(e.target.value);
   }
@@ -53,9 +76,15 @@ function Forgot() {
     const data = { pass1, email };
 
     if (!pass1 || !pass2) {
-      return alert("Campos incompletos");
+      function validation1() {
+        setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+        timer();
+      }
+
+      return validation1();
     } else if (pass2 != pass1) {
-      return alert("Las contrasenas no coinciden");
+      setAlerts((alerts) => ({ ...alerts, diferent: true }));
+      timer();
     }
 
     try {
@@ -69,16 +98,23 @@ function Forgot() {
 
       const result = await res.json();
       if (!result.success) {
-        return alert("Error al cambiar la contrasena");
+        function validation2() {
+          setAlerts((alerts) => ({ ...alerts, problem: true }));
+          timer();
+        }
+
+        return validation2();
       }
 
-      alert(result.message);
+      setAlerts((alerts) => ({ ...alerts, change: true }));
+      timer();
       function pass() {
         setShow(!show);
       }
       pass();
     } catch (error) {
-      alert("Error de parte del servidor", error);
+      setAlerts((alerts) => ({ ...alerts, error: true }));
+      timer();
     }
   }
 
@@ -136,7 +172,13 @@ function Forgot() {
                         placeholder="Confirm password"
                         onChange={(e) => inpPass2(e)}
                       />
-
+                      {alerts.cmpInc && (
+                        <Alert
+                          className="alerts"
+                          type="warning"
+                          title="Incomplete fields"
+                        />
+                      )}
                       <div className="button">
                         <button
                           type="submit"

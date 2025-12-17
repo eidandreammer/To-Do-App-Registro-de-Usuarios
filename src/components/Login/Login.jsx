@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert } from "antd";
-import Registro from "../Registro/Registro";
+import Register from "../Register/Register";
 import Forgot from "../Forgot/Forgot";
 
 function Login() {
@@ -57,7 +57,7 @@ function Login() {
       if (!result.success) {
         setAlerts((alerts) => ({ ...alerts, problem: true }));
         timer();
-      } else if (result.succes) {
+      } else if (result.success) {
         setAlerts((alerts) => ({ ...alerts, login: true }));
         timer();
       }
@@ -98,19 +98,32 @@ function Login() {
                     onChange={(e) => inpPassword(e)}
                   />
                   {alerts.cmpInc && (
-                    <Alert title="Campos incompletos" type="warning" />
+                    <Alert
+                      className="alerts"
+                      title="Campos incompletos"
+                      type="warning"
+                    />
                   )}
                   {alerts.problem && (
                     <Alert
+                      className="alerts"
                       title="Usuario o contrasena Incorrecta"
                       type="error"
                     />
                   )}
                   {alerts.login && (
-                    <Alert title="Inicio de seccion exitoso" type="success" />
+                    <Alert
+                      className="alerts"
+                      title="Inicio de seccion exitoso"
+                      type="success"
+                    />
                   )}
                   {alerts.error && (
-                    <Alert title="Error de parte del servidor" type="error" />
+                    <Alert
+                      className="alerts"
+                      title="Error al iniciar seccion"
+                      type="error"
+                    />
                   )}
                   <div className="fgtpsw">
                     <p>
@@ -126,7 +139,12 @@ function Login() {
                   </div>
 
                   <div className="buttons">
-                    <button type="button" onClick={login}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        login();
+                      }}
+                    >
                       Login
                     </button>
                     <button
@@ -141,7 +159,7 @@ function Login() {
             </div>
           )}
 
-          {!register && <Registro />}
+          {!register && <Register />}
         </div>
       )}
       {!pass && <Forgot />}

@@ -1,11 +1,30 @@
 import React, { useState } from "react";
 import Login from "../Login/Login";
+import { Alert } from "antd";
 
-function Registro() {
+function Register() {
   //Aqui es donde se va a almacenar cada dato del formulario
-  let [users, setUsers] = useState("");
-  let [password, setPassword] = useState("");
-  let [email, setEmail] = useState("");
+  const [users, setUsers] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [alerts, setAlerts] = useState({
+    cmpInc: false,
+    problem: false,
+    register: false,
+    error: false,
+  });
+
+  function timer() {
+    setTimeout(() => {
+      setAlerts((alerts) => ({
+        ...alerts,
+        cmpInc: false,
+        problem: false,
+        register: false,
+        error: false,
+      }));
+    }, 5000);
+  }
 
   //Aqui es en donde se declara la funcion para llamarla y se actualice
   //el valor de cada estado con el contenido del input
@@ -27,7 +46,11 @@ function Registro() {
 
   async function register() {
     if (!users || !password || !email) {
-      return alert("Campos incompletos");
+      function validation() {
+        setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+        timer();
+      }
+      return validation();
     }
     const data = { users, password, email }; //se declaran las variables como objetos
 
@@ -43,13 +66,16 @@ function Registro() {
       const result = await res.json();
 
       if (!result.success) {
-        return alert(result.message);
+        setAlerts((alerts) => ({ ...alerts, problem: true }));
+        timer();
+      } else if (result.success) {
+        setAlerts((alerts) => ({ ...alerts, register: true }));
+        timer();
       }
-
-      alert("Usuario registrado con exito");
     } catch (error) {
-      alert("Error al enviar los datos");
       console.error("Error al enviar los datos" + error);
+      setAlerts((alerts) => ({ ...alerts, error: true }));
+      timer();
     }
   }
 
@@ -60,7 +86,7 @@ function Registro() {
       {view && (
         <div className="container">
           <img className="logo" src="/img/OrbiNombre.png" />
-          
+
           <div className="form">
             <h1>Register</h1>
             <form>
@@ -87,7 +113,34 @@ function Registro() {
                 placeholder="Email address"
                 onChange={(e) => inpEmail(e)}
               />
-
+              {alerts.cmpInc && (
+                <Alert
+                  className="alerts"
+                  type="warning"
+                  title="Incomplete fields"
+                />
+              )}
+              {alerts.problem && (
+                <Alert
+                  className="alerts"
+                  type="error"
+                  title="User or email exiting"
+                />
+              )}
+              {alerts.register && (
+                <Alert
+                  className="alerts"
+                  type="success"
+                  title="Registered user"
+                />
+              )}
+              {alerts.error && (
+                <Alert
+                  className="alerts"
+                  type="error"
+                  title="Error registering user"
+                />
+              )}
               <div className="buttons">
                 <button type="button" onClick={() => setView(!view)}>
                   Login
@@ -111,4 +164,4 @@ function Registro() {
   );
 }
 
-export default Registro;
+export default Register;
