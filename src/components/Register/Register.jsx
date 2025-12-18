@@ -46,11 +46,9 @@ function Register() {
 
   async function register() {
     if (!users || !password || !email) {
-      function validation() {
-        setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
-        timer();
-      }
-      return validation();
+      setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+      timer();
+      return;
     }
     const data = { users, password, email }; //se declaran las variables como objetos
 
@@ -68,10 +66,10 @@ function Register() {
       if (!result.success) {
         setAlerts((alerts) => ({ ...alerts, problem: true }));
         timer();
-      } else if (result.success) {
-        setAlerts((alerts) => ({ ...alerts, register: true }));
-        timer();
+        return;
       }
+      setAlerts((alerts) => ({ ...alerts, register: true }));
+      timer();
     } catch (error) {
       console.error("Error al enviar los datos" + error);
       setAlerts((alerts) => ({ ...alerts, error: true }));

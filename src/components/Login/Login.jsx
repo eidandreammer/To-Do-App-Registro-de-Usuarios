@@ -37,11 +37,9 @@ function Login() {
   }
   async function login() {
     if (!users || !password) {
-      function validation() {
-        setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
-        timer();
-      }
-      return validation();
+      setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+      timer();
+      return;
     }
 
     const data = { users, password };
@@ -55,15 +53,16 @@ function Login() {
 
       const result = await res.json();
       if (!result.success) {
-        setAlerts((alerts) => ({ ...alerts, problem: true }));
+        setAlerts((alerts) => ({ ...alerts, problem: true, cmpInc: false }));
         timer();
-      } else if (result.success) {
-        setAlerts((alerts) => ({ ...alerts, login: true }));
-        timer();
+        return;
       }
+
+      setAlerts((alerts) => ({ ...alerts, login: true, problem: false }));
+      timer();
     } catch (error) {
       console.log("Error al iniciar seccion", error);
-      setAlerts((alerts) => ({ ...alerts, error: true }));
+      setAlerts((alerts) => ({ ...alerts, error: true, login: false }));
       timer();
     }
   }
