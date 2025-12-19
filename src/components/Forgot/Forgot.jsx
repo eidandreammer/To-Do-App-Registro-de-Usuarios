@@ -50,15 +50,18 @@ function Forgot() {
     setEmail(e.target.value);
   }
 
+  // Flip to the password change view
+  function pass() {
+    setView(!view);
+  }
+
   // Validate email submission and switch to the password reset view
   async function validate() {
     // Guard: require an email before hitting the API
     if (!email) {
-      function validation1() {
-        setAlerts((alerts) => ({ ...alerts, email: true }));
-        timer();
-      }
-      return validation1();
+      setAlerts((alerts) => ({ ...alerts, email: true }));
+      timer();
+      return;
     }
     const data = { email };
     try {
@@ -72,26 +75,14 @@ function Forgot() {
 
       // If backend says the email is not registered, show warning
       if (!result.success) {
-        function validation4() {
-          setAlerts((alerts) => ({ ...alerts, noUsed: true, email: false }));
-          timer();
-        }
-        return validation4();
-      }
-
-      // Flip to the password change view
-      function pass() {
-        setView(!view);
-      }
-
-      // Acknowledge the valid email before proceeding
-      function validation5() {
-        setAlerts((alerts) => ({ ...alerts, used: true, noUsed: false }));
+        setAlerts((alerts) => ({ ...alerts, noUsed: true, email: false }));
         timer();
-        pass();
+        return;
       }
-
-      validation5();
+      // Acknowledge the valid email before proceeding
+      setAlerts((alerts) => ({ ...alerts, used: true, noUsed: false }));
+      timer();
+      pass();
     } catch (error) {
       // Network or server failure while validating email
       setAlerts((alerts) => ({ ...alerts, emailError: true, used: false }));
@@ -115,13 +106,9 @@ function Forgot() {
 
     // Guard: both password fields must be filled
     if (!pass1 || !pass2) {
-      function validation2() {
-        setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
-        timer();
-        return;
-      }
-
-      return validation2();
+      setAlerts((alerts) => ({ ...alerts, cmpInc: true }));
+      timer();
+      return;
     } else if (pass2 != pass1) {
       // Guard: passwords must match before submission
       setAlerts((alerts) => ({ ...alerts, diferent: true, cmpInc: false }));

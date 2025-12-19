@@ -107,10 +107,6 @@ h1 {
   color: #0d2a58;
 }
 
-.alert {
-  margin: 20px;
-}
-
 .register {
   display: flex;
   justify-content: center;
@@ -150,4 +146,28 @@ h1 {
   max-width: 300px;
   width: 80vw;
   height: 7vh;
+}
+/*Principal panel styles*/
+.containerDashboard {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dashboardForm {
+  height: auto;
+  width: 50%;
+  min-width: 400px;
+  display: flex;
+
+  border: solid 1px #000;
+}
+
+.dashboardInput {
+  border: solid 1px #000;
+  padding: 15px;
+  border-radius: 15px;
 }

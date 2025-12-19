@@ -9,6 +9,9 @@ function Register() {
   const [password, setPassword] = useState("");
   // Store the email typed for registration
   const [email, setEmail] = useState("");
+  // Toggle between the registration form and the login component
+  const [view, setView] = useState(true);
+
   // Track alert flags related to the register form
   const [alerts, setAlerts] = useState({
     cmpInc: false, // Missing required fields
@@ -44,7 +47,10 @@ function Register() {
   function inpEmail(e) {
     setEmail(e.target.value);
   }
-
+  // Send user to the login screen when clicking the logo
+  function handleLogoClick() {
+    setView(false);
+  }
   // Validate inputs and send registration payload to the API
   async function register() {
     // Guard: require all fields before calling the API
@@ -81,14 +87,6 @@ function Register() {
       setAlerts((alerts) => ({ ...alerts, error: true }));
       timer();
     }
-  }
-
-  // Toggle between the registration form and the login component
-  const [view, setView] = useState(true);
-
-  // Send user to the login screen when clicking the logo
-  function handleLogoClick() {
-    setView(false);
   }
 
   return (
