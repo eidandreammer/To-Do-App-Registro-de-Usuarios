@@ -197,8 +197,9 @@ h1 {
 .input-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
+  padding: 20px;
 }
 
 .dashboardButton {
@@ -240,19 +241,19 @@ h1 {
 
 .completedTask,
 .pendingTask {
-  min-height: 200px;
-  min-width: 80vw;
-  border: #b8b8b8 solid 1.5px;
-  box-shadow: #ced3db 5px 5px 12px;
+  border: solid 1px #dfdfdf;
   border-radius: 20px;
-  padding: 10px;
+  box-shadow: #dfdfdf 4px 4px 10px;
+  width: 85vw;
+  height: auto;
+  min-height: 200px;
 }
 
 @media (min-width: 766px) {
   .completedTask,
   .pendingTask {
-    min-height: 250px;
-    min-width: 40vw;
+    width: 35vw;
+    min-height: 220px;
   }
 }
 
