@@ -160,10 +160,15 @@ function Register() {
                 />
               )}
               <div className="buttons">
-                <button type="button" onClick={() => setView(!view)}>
+                <button
+                  className="formButton"
+                  type="button"
+                  onClick={() => setView(!view)}
+                >
                   Login
                 </button>
                 <button
+                  className="formButton"
                   type="button"
                   onClick={() => {
                     register();

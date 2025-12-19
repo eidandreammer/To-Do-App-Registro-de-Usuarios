@@ -149,6 +149,7 @@ function Login() {
 
                       <div className="buttons">
                         <button
+                        className="formButton"
                           type="button"
                           onClick={() => {
                             login();
@@ -157,6 +158,7 @@ function Login() {
                           Login
                         </button>
                         <button
+                        className="formButton"
                           type="button"
                           onClick={() => setRegister(!register)}
                         >

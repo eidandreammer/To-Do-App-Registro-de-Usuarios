@@ -67,7 +67,7 @@
 /* === Botones y acciones ===
    Estilos para CTA y contenedor de botones */
 /* From Uiverse.io by Mhyar-nsi */
-button {
+.formButton {
   background-color: #f3f7fe;
   color: #0d2a58;
   border: none;
@@ -78,7 +78,7 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
+.formButton:hover {
   background-color: #295aaa;
   box-shadow: 0 0 0 5px #3b83f65f;
   color: #fff;
@@ -170,4 +170,7 @@ h1 {
   border: solid 1px #000;
   padding: 15px;
   border-radius: 15px;
+}
+
+.dashboardButton {
 }

@@ -218,8 +218,11 @@ function Forgot() {
                   {/* Buttons when still on the email validation step */}
                   {view && (
                     <div className="buttons">
-                      <button onClick={() => login()}>Login</button>
+                      <button className="formButton" onClick={() => login()}>
+                        Login
+                      </button>
                       <button
+                        className="formButton"
                         type="submit"
                         onClick={(e) => {
                           e.preventDefault();
@@ -299,6 +302,7 @@ function Forgot() {
 
                       <div className="buttons">
                         <button
+                          className="formButton"
                           type="submit"
                           onClick={(e) => {
                             e.preventDefault();
