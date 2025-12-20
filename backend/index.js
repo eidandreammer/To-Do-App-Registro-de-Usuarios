@@ -41,6 +41,7 @@ app.post("/api/register", async (req, res) => {
 
     // Block registration when the username is taken
     if (evaluate1.rows.length > 0) {
+      console.log("Registro bloqueado: el usuario ya existe");
       return res.status(409).json({
         success: false,
         message: "User already exists",
@@ -48,6 +49,9 @@ app.post("/api/register", async (req, res) => {
     }
     // Block registration when the email is already used
     else if (evaluate2.rows.length > 0) {
+      console.log(
+        "Registro bloqueado: el correo ya esta asociado a un usuario"
+      );
       return res.status(409).json({
         success: false,
         message: "Email already associated with a user",
@@ -60,16 +64,17 @@ app.post("/api/register", async (req, res) => {
     );
 
     // Respond with the created user data
+    console.log("Registro exitoso para el usuario:", users);
     res.status(200).json({
       success: true,
       user: newUser.rows[0],
     });
   } catch (error) {
+    console.error("Fallo al registrar usuario:", error.message);
     res.status(500).json({
       success: false,
       message: "Error registering user",
     });
-    console.log("Error registering user");
   }
 });
 
@@ -86,6 +91,7 @@ app.post("/api/login", async (req, res) => {
     );
 
     if (evaluate.rows.length === 0) {
+      console.log("Inicio de sesion fallido: usuario no encontrado");
       return res.status(404).json({
         success: false,
         message: "User not found",
@@ -98,6 +104,7 @@ app.post("/api/login", async (req, res) => {
     );
 
     if (login.rows.length === 0) {
+      console.log("Inicio de sesion fallido: contrasena incorrecta");
       return res.status(200).json({
         success: false,
         message: "Incorrect password",
@@ -105,11 +112,13 @@ app.post("/api/login", async (req, res) => {
     }
 
     // Return the user record when authentication succeeds
+    console.log("Inicio de sesion exitoso para el usuario:", users);
     res.status(200).json({
       success: true,
       data: login.rows[0],
     });
   } catch (error) {
+    console.error("Fallo del servidor en login:", error.message);
     res.status(500).json({
       success: false,
       message: "Server-side error",
@@ -129,18 +138,21 @@ app.post("/api/change", async (req, res) => {
     ]);
 
     if (change.rows.length === 1) {
+      console.log("Cambio de contrasena permitido: correo encontrado");
       return res.status(200).json({
         success: true,
         data: change.rows[0],
       });
     }
 
+    console.log("Cambio de contrasena bloqueado: correo no registrado");
     res.status(404).json({
       success: false,
       message: "Email not registered",
     });
   } catch (error) {
     // Catch-all for any database or server failures
+    console.error("Fallo del servidor al validar correo:", error.message);
     res.status(500).json({
       success: false,
       message: "Server-side error",
@@ -161,16 +173,19 @@ app.put("/api/pass", async (req, res) => {
     );
 
     if (!newPass) {
+      console.log("Error al cambiar contrasena: actualizacion no realizada");
       return res.status(404).json({
         succes: false,
         message: "Error changing password",
       });
     }
+    console.log("Contrasena cambiada correctamente para el correo:", email);
     res.status(200).json({
       success: true,
       message: "Password changed",
     });
   } catch (error) {
+    console.error("Fallo del servidor al cambiar contrasena:", error.message);
     res.status(500).json({
       success: false,
       message: "Server-side error",
@@ -182,6 +197,22 @@ app.post("/api/dashboard", async (req, res) => {
   // Extract the username and task description from the request
   const { user, task } = req.body;
 
+  const clearTask = task.trim().toLowerCase();
+
+  const reviewTask = await pool.query(
+    "SELECT task_name FROM tasks WHERE LOWER(TRIM(task_name)) = $1",
+    [clearTask]
+  );
+
+  if (reviewTask.rows.length > 0) {
+    const existingTask = reviewTask.rows[0].task_name.trim().toLowerCase();
+    if (existingTask === clearTask) {
+      return res.status(409).json({
+        success: false,
+        message: "The task is existing",
+      });
+    }
+  }
   try {
     // Retrieve the database ID for the provided username
     const searchId = await pool.query(
@@ -190,6 +221,7 @@ app.post("/api/dashboard", async (req, res) => {
     );
 
     if (!searchId.rows.length) {
+      console.log("Creacion de tarea fallida: usuario no encontrado");
       return res.status(404).json({
         success: false,
         message: "User not found",
@@ -205,6 +237,7 @@ app.post("/api/dashboard", async (req, res) => {
     );
 
     if (newTask.rows.length < 1) {
+      console.log("Creacion de tarea fallida: no se inserto la tarea");
       res.status(404).json({
         success: false,
         message: "Task can't be added",
@@ -212,12 +245,14 @@ app.post("/api/dashboard", async (req, res) => {
       return;
     }
 
+    console.log("Tarea creada correctamente para el usuario:", user);
     res.status(200).json({
       success: true,
       message: "Task added successfully",
     });
   } catch (error) {
     // Fallback for unexpected errors while creating the task
+    console.error("Fallo del servidor al crear tarea:", error.message);
     res.status(500).json({
       success: false,
       message: "Server-Side error",

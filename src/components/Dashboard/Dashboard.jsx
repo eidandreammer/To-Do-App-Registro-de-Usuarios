@@ -22,6 +22,7 @@ function Dashboard({ user }) {
         badServer: false,
         addTask: false,
         error: false,
+        existing: false,
       }));
     }, 5000);
   }
@@ -37,6 +38,7 @@ function Dashboard({ user }) {
         badServer: false,
         addTask: false,
         error: false,
+        existing: false,
       }));
       timer();
       return;
@@ -67,6 +69,20 @@ function Dashboard({ user }) {
             badServer: false,
             addTask: false,
             error: false,
+            existing: false,
+          }));
+          timer();
+          return;
+        }
+        if (result.message === "The task is existing") {
+          setAlerts((alerts) => ({
+            ...alerts,
+            cmpInc: false,
+            badTask: false,
+            badServer: false,
+            addTask: false,
+            error: false,
+            existing: true,
           }));
           timer();
           return;
@@ -80,6 +96,7 @@ function Dashboard({ user }) {
           badServer: true,
           addTask: false,
           error: false,
+          existing: false,
         }));
         timer();
         return;
@@ -93,6 +110,7 @@ function Dashboard({ user }) {
         badServer: false,
         addTask: true,
         error: false,
+        existing: false,
       }));
       timer();
     } catch (error) {
@@ -104,6 +122,7 @@ function Dashboard({ user }) {
         badServer: false,
         addTask: false,
         error: true,
+        existing: false,
       }));
       timer();
     }
@@ -158,7 +177,7 @@ function Dashboard({ user }) {
             {alerts.badServer && (
               <Alert
                 className="dashboardAlerts"
-                title="Server-Side error"
+                title="Server-Side error1"
                 type="error"
               />
             )}
@@ -172,8 +191,15 @@ function Dashboard({ user }) {
             {alerts.error && (
               <Alert
                 className="dashboardAlerts"
-                title="Server-Side error"
+                title="Server-Side error2"
                 type="error"
+              />
+            )}
+            {alerts.existing && (
+              <Alert
+                className="dashboardAlerts"
+                title="The Task is existing"
+                type="warning"
               />
             )}
           </div>
