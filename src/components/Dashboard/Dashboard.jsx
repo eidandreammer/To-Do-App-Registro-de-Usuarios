@@ -16,6 +16,7 @@ function Dashboard({ user }) {
         ...alerts,
         cmpInc: false,
         badTask: false,
+        badServer: false,
         addTask: false,
       }));
     }, 5000);
@@ -42,7 +43,12 @@ function Dashboard({ user }) {
       const result = await res.json();
       if (!result.success) {
         if (result.message === "Task can't be added") {
-          setAlerts((alerts) => ({ ...alerts, badTask: true, cmpInc: false }));
+          setAlerts((alerts) => ({
+            ...alerts,
+            badTask: true,
+            cmpInc: false,
+            addTask: false,
+          }));
           timer();
           return;
         }
@@ -94,38 +100,20 @@ function Dashboard({ user }) {
           </div>
         </form>
         <div className="dashboardAlertsContainer">
-          {alerts.cmpInc && (
-            <Alert
-              className="dashboardAlerts"
-              type="warning"
-              title="Enter a new task"
-            />
-          )}
-          {alerts.badTask && (
-            <Alert
-              className="dashboardAlerts"
-              type="warning"
-              title="Task can't be added"
-            />
-          )}
-          {alerts.badServer && (
-            <Alert
-              className="dashboardAlerts"
-              type="warning"
-              title="Server-Side error"
-            />
-          )}
-          {alerts.addTask && (
-            <Alert
-              className="dashboardAlerts"
-              title="Task added"
-              type="success"
-            />
-          )}
+          <div className="dashboardAlertsContainer">
+            {alerts.cmpInc && (
+              <Alert
+                className="dashboardAlerts"
+                title="Incomplete fields"
+                type="warning"
+              />
+            )}
+          </div>
         </div>
         <div className="tasks">
           <div className="pendingTask">
             <h1>Pending task</h1>
+            
           </div>
           <div className="completedTask">
             <h1>Completed task</h1>

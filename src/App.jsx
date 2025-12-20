@@ -8,7 +8,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 function App() {
   return (
     <div className="card">
-      <Dashboard user="Eidan" />
+      <Dashboard user="Leslie" />
     </div>
   );
 }
