@@ -247,6 +247,7 @@ h1 {
   width: 85vw;
   height: auto;
   min-height: 200px;
+  background-color: #fff;
 }
 
 @media (min-width: 766px) {
