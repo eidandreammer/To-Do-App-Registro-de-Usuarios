@@ -128,14 +128,21 @@ function Dashboard({ user }) {
       }));
       timer();
     }
+    try {
+      const res = await fetch("http://localhost:3000/api/dashboard/pending", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    const res = await fetch("http://localhost:3000/api/dashboard/pending", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+      const result = await res.json();
+      if(!result.success){
+        console.log("No pending tasks found");
+      }
+      // Here you would typically update the state to reflect the fetched pending tasks
+    } catch (error) {}
   }
   return (
     <div>
