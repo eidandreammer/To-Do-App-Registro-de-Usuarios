@@ -128,6 +128,14 @@ function Dashboard({ user }) {
       }));
       timer();
     }
+
+    const res = await fetch("http://localhost:3000/api/dashboard/pending", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
   }
   return (
     <div>
@@ -209,7 +217,7 @@ function Dashboard({ user }) {
         <div className="tasks">
           <div className="pendingTask">
             <h1>Pending task</h1>
-            {/* Pending task list would be rendered here */}
+            {}
           </div>
           <div className="completedTask">
             <h1>Completed task</h1>

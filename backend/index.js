@@ -260,6 +260,31 @@ app.post("/api/dashboard", async (req, res) => {
   }
 });
 
+app.post("/api/dashboard/pending", async (req, res) => {
+  const { user } = req.body;
+
+  try {
+    const id = await pool.query("SELECT id FROM users WHERE username = $1", [
+      user,
+    ]);
+    const tasks = await pool.query(
+      "SELECT task_name FROM tasks WHERE id = $1 AND task_status = false",
+      [id]
+    );
+
+    if (tasks.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No pending tasks found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: tasks.rows,
+    });
+  } catch (error) {}
+});
+
 // Start listening for requests
 app.listen(port, () => {
   console.log("Server listening on port " + port);
