@@ -10,6 +10,8 @@ function Dashboard({ user }) {
     badTask: false,
     badServer: false,
     addTask: false,
+    error: false,
+    existing: false,
   });
 
   // Auto-dismiss any active alert after a short delay
